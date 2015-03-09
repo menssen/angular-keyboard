@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="demo" ng-strict-di>
+    <head>
+        <title>kb-key demo - Angular Keyboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://bootswatch.com/readable/bootstrap.min.css">
+        <style>
+            .text-ellipis {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            [kb-item] {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Angular Keyboard: kbKey single key actions</h1>
+
+            <ul class="shortcuts">
+              <li>shift+f: focus text</li>
+              <li>ctrl+n: click un-nested link</li>
+              <li>ctrl+n: click nested link (overrides above when visible)</li>
+              <li>meta+a: show an alert</li>
+            </ul>
+            
+            <ul class="examples">
+              <li>
+                <div>
+                  <input type="text" value="Here's some text."
+                    kb-key="'Shift+F'"
+                    kb-key-focus
+                  />
+                  <p>
+                    Notice that if you try to run a shortcut
+                    from within the <code>input</code> it won't
+                    work, as you'd expect.
+                  </p>
+                </div>
+              </li>
+              
+              <li>
+                <div>
+                  <a ng-click="alert('un-nested!')"
+                    kb-key="'Ctrl+N'"
+                  >Un-nested thing.</a> kb-key-click is not required if triggering ng-click
+                </div>
+                
+                <div>
+                  <label>
+                    <input type="checkbox" ng-model="showingNested" />
+                    Show the nested thing.
+                  </label>
+                  
+                  <div ng-if="showingNested">
+                    It's a
+                    <a ng-click="alert('nested!')"
+                      kb-key="'Ctrl+N'"
+                      kb-key-click
+                    >nested thing.</a>
+                  </div>
+                </div>
+              </li>
+              
+              <li>
+                <p
+                  kb-key="'Meta+A'"
+                  kb-key-action="alert('hi!')"
+                  kb-key-description="Simple alert!"
+                >
+                  This one doesn't have any built-in actions, instead
+                  it alerts when the <code>meta+a</code> is pressed.
+                </p>
+              </li>
+            </ul>
+        </div>
+
+        <script src="js/angular/angular.min.js"></script>
+        <script src="js/angular-keyboard/keyboard.js"></script>
+        <script type="text/javascript">
+          angular.module('demo', ['keyboard'])
+          .run(['$rootScope', function($rootScope) {
+            $rootScope.alert = function(msg) {
+              alert(msg)
+            }
+          }])
+
+        </script>
+</html>

@@ -14,6 +14,7 @@ angular.module('keyboard').directive('kbList', function (KbContainerController, 
                 identifier: '[kb-list]',
                 ngModel: controllers[1],
                 attrs: attrs,
+                keys: {},
                 activate: function (kbItem) {
                     this.active = kbItem;
                     this.select(kbItem.model);

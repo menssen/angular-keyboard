@@ -1,7 +1,7 @@
 /**
  * kb-item
  */
-angular.module('keyboard').directive('kbItem', function (KbItemController, $animate, $log) {
+angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemController', '$animate', '$log', function(kbAction, kbKey, KbItemController, $animate, $log) {
     return {
         controller: KbItemController,
         require: ['kbItem', '?^kbList', '?^kbSelect'],
@@ -135,6 +135,14 @@ angular.module('keyboard').directive('kbItem', function (KbItemController, $anim
                     }
                 } else if (e.which === 32 || e.which === 13) { // Space || Enter
                     invoke = true;
+                } else {
+                  kbItem.keys.some(function(itemKey) {
+                    if (itemKey.kbKey.equals(new kbKey(e))) {
+                      e.preventDefault()
+                      kbAction.doActionForElement(itemKey.element)
+                      return true
+                    }
+                  })
                 }
                 if (changed || invoke) {
                     e.preventDefault();
@@ -160,4 +168,4 @@ angular.module('keyboard').directive('kbItem', function (KbItemController, $anim
             });
         }
     };
-});
+}]);
