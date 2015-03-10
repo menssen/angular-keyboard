@@ -17,7 +17,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Angular Keyboard: kbList multiple actions</h1>
+            <h1>Angular Keyboard: kbList multiple actions (simple Mode)</h1>
             <div class="row">
 
                  <div class="col-md-12">
@@ -26,12 +26,12 @@
                         <dt>Keys</dt><dd>up, down</dd>
                         <dt>Selected</dt><dd class="text-ellipis">{{active.list.name || '&nbsp;' }}</dd>
                     </dl>
-                    <table kb-list kb-cyclic ng-model="active.list" class="table table-bordered table-condensed">
+                    <table kb-list="simple" kb-cyclic ng-model="active.list" class="table table-bordered table-condensed">
                         <thead>
                             <tr>
                                 <td>Items</td>
                                 <td>Action 1 (1)</td>
-                                <td>Action 2 (2)</td>
+                                <td>Action 2 (Enter)</td>
                                 <td>Multiple Key Action (3|4)</td>
                                 <td>Modifer Action (Ctrl+1)</td>
                             </tr>
@@ -40,7 +40,7 @@
                             <tr kb-item="item" ng-repeat="item in items track by item.id" kb-selected-class="info">
                                 <td>{{item.name}}</td>
                                 <td><a kb-item-key="'1'" ng-click="alert('action 1 for ' + item.name)">Action 1</a></td>
-                                <td><a kb-item-key="'2'" ng-click="alert('action 2 for ' + item.name)">Action 2</a></td>
+                                <td><a kb-item-key="'ENTER'" ng-click="alert('action 2 for ' + item.name)">Action 2</a></td>
                                 <td><a kb-item-key="['3','4']" ng-click="alert('multiple key action for ' + item.name)">Multiple Key Action</a></td>
                                 <td><a kb-item-key="'Ctrl+1'" ng-click="alert('modifier action for ' + item.name)">Modifier Action</a></td>
                             </tr>

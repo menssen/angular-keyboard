@@ -9,6 +9,7 @@ angular.module('keyboard').factory('KbContainerController', function (undefined,
         this.selected = []; // Selected kbItem(s)
         this.multiple = false;
         this.cyclic = false;
+        this.simpleMode = false; //only track up and down error, and don't invoke
         this.active = undefined; // kbItemController of the active kb-item.
         this._element = $element[0];
     }

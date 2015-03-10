@@ -92,7 +92,7 @@ angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemContr
             el.on('keydown', function (e) {
                 var changed = false;
                 var invoke = false;
-                if (e.which >= 37 && e.which <= 40) { // An arrow-key?
+                if (!kbContainer.simpleMode && (e.which >= 37 && e.which <= 40) || kbContainer.simpleMode && (e.which == 38 || e.which == 40)) { // An arrow-key?
                     var siblings = kbContainer._getSiblingItems(kbItem);
                     var currentRect = el[0].getBoundingClientRect();
                     if (siblings.previous && distance(directions[e.which], currentRect, siblings.previous.element[0].getBoundingClientRect())) {
@@ -133,7 +133,7 @@ angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemContr
                             angular.element(kbContainer._element).scope().$eval(kbContainer.attrs[trigger], { $event: e});
                         }
                     }
-                } else if (e.which === 32 || e.which === 13) { // Space || Enter
+                } else if (!kbContainer.simpleMode && (e.which === 32 || e.which === 13)) { // Space || Enter
                     invoke = true;
                 } else {
                   kbItem.keys.some(function(itemKey) {

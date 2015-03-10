@@ -11,6 +11,7 @@ angular.module('keyboard').directive('kbList', function (KbContainerController, 
         link: function ($scope, el, attrs, controllers) {
             var kbContainer = controllers[0];
             kbContainer.initialize({
+                simpleMode: attrs.kbList === 'simple',
                 identifier: '[kb-list]',
                 ngModel: controllers[1],
                 attrs: attrs,
