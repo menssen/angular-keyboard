@@ -58,7 +58,7 @@ Click on a `kb-item` or use up and down arrows to select an item. Use for simple
 #### Example
 
 ```html
-<div kb-list ng-model="vm.selected">
+<div kb-list="simple" ng-model="vm.selected">
   <div ng-repeat="item in items" kb-item="item">{{item.title}}</div>
 </div>
 ```
