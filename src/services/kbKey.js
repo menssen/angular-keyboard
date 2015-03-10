@@ -1,13 +1,13 @@
 angular.module('keyboard').constant('kbKey', (function() {
   var specialKeys = {
-    8: 'Backspace',
-    9: 'Tab',
-    13: 'Enter',
-    27: 'Escape',
-    37: 'ArrowLeft',
-    38: 'ArrowUp',
-    39: 'ArrowRight',
-    40: 'ArrowDown',
+    8: 'BACKSPACE',
+    9: 'TAB',
+    13: 'ENTER',
+    27: 'ESCAPE',
+    37: 'ARROWLEFT',
+    38: 'ARROWUP',
+    39: 'ARROWRRIGHT',
+    40: 'ARROWDOWN',
   };
   var modifiers = ['meta', 'ctrl', 'shift', 'alt']
 
@@ -29,6 +29,10 @@ angular.module('keyboard').constant('kbKey', (function() {
       this.shift = false
       this.alt = false
 
+      //FIXME: breaks if somebody forgets to add a key
+      if(!opts){
+        console.log("Make sure every key is wrapped in ' (single quotes)")
+      }
       var keys = opts.split('+')
 
       keys.forEach(function(key) {
