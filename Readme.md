@@ -41,7 +41,19 @@ angular.module('myApp', ['keyboard']);
 
 ### kbList
 
-A `kb-item` in a `kb-list` can selected using the arrow keys and by clicking on the `kb-item`.
+A `kb-item` in a `kb-list` can be selected using the arrow keys and by clicking on the `kb-item`.
+
+#### Example
+
+```html
+<div kb-list ng-model="vm.selected">
+  <div ng-repeat="item in items" kb-item="item">{{item.title}}</div>
+</div>
+```
+
+### kbList="simple"
+
+Click on a `kb-item` or use up and down arrows to select an item. Use for simple, immediate selections. Allows use of left, right, enter and space bar for other actions. See `kb-item-key`.
 
 #### Example
 
@@ -107,6 +119,19 @@ An event handler for `kb-item`. Triggered when clicked or (when focused) with sp
   <li ng-repeat="item in items" kb-item kb-invoke="openPopup(item.href)">{{item.title}}</li>
 </ul>
 ```
+### kbKey
+
+Create arbitrary key shortcuts with `kb-key`. A key can be most keys on the keyboard including modifier keys such as 'ctrl,shift,meta,option' as well as 'ENTER, ARROWUP, ARROWDOWN, ARROWLEFT, ARROWRIGHT, BACKSPACE, ESCAPE, TAB, SPACE' or even an expression. Accepts multiple keys
+
+####Examples
+
+```html
+<a kb-key="'ENTER'">special</a>, <a kb-key="'ctrl+'somevariable">dynamic</a>, <a kb-key="'1','2'">multiple</a>
+```
+
+### kbItemKey
+
+Use `kb-item-key` just like `kb-key` but within a `kb-item` to allow a key to act on a selected `kb-item`.
 
 ## Development
 
@@ -115,3 +140,5 @@ An event handler for `kb-item`. Triggered when clicked or (when focused) with sp
 * Install dependencies: `npm install` in the repository directory.
 * `gulp build` to build
 * `gulp watch` for building & livereload on every change.
+
+To run the examples run `node app.js` from within the minisite directory
