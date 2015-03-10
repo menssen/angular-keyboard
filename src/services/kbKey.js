@@ -4,6 +4,7 @@ angular.module('keyboard').constant('kbKey', (function() {
     9: 'TAB',
     13: 'ENTER',
     27: 'ESCAPE',
+    32: 'SPACE',
     37: 'ARROWLEFT',
     38: 'ARROWUP',
     39: 'ARROWRRIGHT',
