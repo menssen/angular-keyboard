@@ -126,7 +126,9 @@ Create arbitrary key shortcuts with `kb-key`. A key can be most keys on the keyb
 ####Examples
 
 ```html
-<a kb-key="'ENTER'">special</a>, <a kb-key="'ctrl+'somevariable">dynamic</a>, <a kb-key="'1','2'">multiple</a>
+<a kb-key="'ENTER'">special</a> 
+<a kb-key="'ctrl+'somevariable">dynamic</a> 
+<a kb-key="'1','2'">multiple</a>
 ```
 
 ### kbItemKey
