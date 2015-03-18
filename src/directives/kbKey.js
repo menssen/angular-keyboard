@@ -11,6 +11,7 @@ angular.module('keyboard').directive('kbKey', ['kbAction', 'kbLinkKbKey', 'kbKey
     $document.bind('keydown', function(e){
       // Don't catch keys that were in inputs.
       var $target = angular.element(e.target);
+      var inputTypes = /text|search|tel|url|email|password|/i;
       if (e.target.nodeName === "INPUT" && inputTypes.test($target.attr('type'))){
         return;
       }
