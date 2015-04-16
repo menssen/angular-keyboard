@@ -1,4 +1,4 @@
-angular.module('keyboard').directive('kbKey', ['kbAction', 'kbLinkKbKey', 'kbKey', '$document', function(kbAction, kbLinkKbKey, kbKey, $document) {
+angular.module('keyboard').directive('kbKey', ['kbAction', 'kbKey', '$document', function(kbAction, kbKey, $document) {
 
   var documentIsObserved, keys = []
   function observeDocument() {
@@ -33,7 +33,19 @@ angular.module('keyboard').directive('kbKey', ['kbAction', 'kbLinkKbKey', 'kbKey
     controller: function() { this.keys = keys },
     compile: function() {
       observeDocument()
-      return kbLinkKbKey
+      return function (scope, element, attrs, controller) {
+        var shortcutKeySets = scope.$eval(attrs.kbItemKey || attrs.kbKey);
+        if (!Array.isArray(shortcutKeySets)) {
+            shortcutKeySets = [shortcutKeySets]
+        }
+
+        shortcutKeySets.forEach(function(key) {
+            controller.keys.push({
+              kbKey: new kbKey(key),
+              element: element,
+            })
+        })
+      }
     },
   }
   
