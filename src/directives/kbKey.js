@@ -8,6 +8,13 @@ angular.module('keyboard').directive('kbKey', ['kbAction', 'kbKey', '$document',
 
     documentIsObserved = true
 
+    $document.bind('mousedown', function(e){
+      var $target = angular.element(e.target);
+      if ($target.hasClass('icon-cancel-1') || angular.element($target[0].parentNode).hasClass('close') ){
+        e.preventDefault();
+      } 
+    })
+
     $document.bind('keydown', function(e){
       // Don't catch keys that were in inputs.
       var $target = angular.element(e.target);
