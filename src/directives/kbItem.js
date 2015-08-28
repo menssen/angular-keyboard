@@ -57,6 +57,15 @@ angular.module('keyboard').directive('kbItem', ['kbAction', 'kbKey', 'KbItemCont
           }
         }
       });
+
+      $scope.$watch(function(){
+        return document.querySelectorAll('[kb-item]').length;
+      }, function(val, val2){
+        if (val === val2) {
+          kbContainer.activate(kbContainer._first());
+        }
+      })
+
       function distance(direction, currentRect, targetRect) {
         if (direction === 'left' && targetRect.left < currentRect.left) {
           return currentRect.left - targetRect.left;
