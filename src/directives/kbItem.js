@@ -138,7 +138,8 @@ angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemContr
                 } else {
                   kbItem.keys.some(function(itemKey) {
                     if (itemKey.kbKey.equals(new kbKey(e))) {
-                      e.preventDefault()
+                      e.preventDefault();
+                      e.stopPropagation();
                       kbAction.doActionForElement(itemKey.element)
                       return true
                     }
@@ -146,6 +147,7 @@ angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemContr
                 }
                 if (changed || invoke) {
                     e.preventDefault();
+                    e.stopPropagation();
                     if (invoke) {
                         kbContainer.invoke(kbItem);
                         if (attrs.kbInvoke) {
