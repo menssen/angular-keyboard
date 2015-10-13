@@ -37,6 +37,13 @@ angular.module('keyboard').constant('kbKey', (function() {
       var keys = opts.split('+')
 
       keys.forEach(function(key) {
+        if (key.toLowerCase() === 'mod') {
+          if (navigator.platform.indexOf('Mac') === -1) {
+            me.ctrl = true
+          } else {
+            me.meta = true
+          }
+        }
         if (modifiers.indexOf(key.toLowerCase()) !== -1) {
           me[key.toLowerCase()] = true
 
