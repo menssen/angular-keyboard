@@ -21,7 +21,14 @@ angular.module('keyboard').constant('kbAction', (function() {
       }
 
       if (element.attr('kb-key-focus') !== void 0) {
-        element[0].focus()
+        if (element.attr('kb-key-focus')) {
+          var el = element[0].querySelector(element.attr('kb-key-focus'))
+          if (el) {
+            el.focus()
+          }
+        } else {
+          element[0].focus()
+        }
         return
       }
 
