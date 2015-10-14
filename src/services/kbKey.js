@@ -21,9 +21,21 @@ angular.module('keyboard').constant('kbKey', (function() {
       this.shift = opts.shift || opts.shiftKey || false
       this.alt = opts.alt || opts.altKey || false
       this.key = specialKeys[opts.keyCode] || opts.key
-      if (!this.key) {
-        this.key = String.fromCharCode(parseInt(opts.keyIdentifier.substr(2), 16))
+      if (!this.key || this.key === 'Unidentified') {
+        // hack for ie ctrl-/. fix this, or expand to other keys
+        if (opts.keyCode === 191) {
+          this.key = '/'
+        } else if (opts.keyIdentifier) {
+          this.key = String.fromCharCode(parseInt(opts.keyIdentifier.substr(2), 16))
+        }
       }
+      if (this.key === 'º') {
+        this.key = ';'
+      }
+      if (this.key === 'Ü') {
+        this.key = '\\'
+      }
+
     } else {
       this.meta = false
       this.ctrl = false
@@ -63,7 +75,7 @@ angular.module('keyboard').constant('kbKey', (function() {
         }
       }
       
-      return otherKey.key === this.key
+      return otherKey.key.toLowerCase() === this.key.toLowerCase()
     } },
 
   })
