@@ -1,17 +1,6 @@
 angular.module('keyboard').constant('kbAction', (function() {
   return {
     doActionForElement: function(element) {
-      var action;
-      var eventAction = function(event){
-        return function(){
-          if(event === 'focus'){
-            element[0].focus();
-            return
-          }
-          element.triggerHandler(event);
-        };
-      };
-
       if (  element.attr('kb-key-click') !== void 0
          || element.attr('ng-click')     !== void 0
          || element.attr('ui-sref')      !== void 0
@@ -22,7 +11,20 @@ angular.module('keyboard').constant('kbAction', (function() {
 
       if (element.attr('kb-key-focus') !== void 0) {
         if (element.attr('kb-key-focus')) {
-          var el = element[0].querySelector(element.attr('kb-key-focus'))
+          var focus = element.scope().$eval(element.attr('kb-key-focus'))
+          if (!focus) {
+            focus = []
+          }
+          if (!Array.isArray(focus)) {
+            focus = [focus]
+          }
+          var el
+          for (var x in focus) {
+            el = element[0].querySelector(focus[x])
+            if (el) {
+              break
+            }
+          }
           if (el) {
             el.focus()
           }
