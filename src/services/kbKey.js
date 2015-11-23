@@ -7,7 +7,7 @@ angular.module('keyboard').constant('kbKey', (function() {
     32: 'SPACE',
     37: 'ARROWLEFT',
     38: 'ARROWUP',
-    39: 'ARROWRRIGHT',
+    39: 'ARROWRIGHT',
     40: 'ARROWDOWN',
   };
   var modifiers = ['meta', 'ctrl', 'shift', 'alt']
@@ -21,6 +21,9 @@ angular.module('keyboard').constant('kbKey', (function() {
       this.shift = opts.shift || opts.shiftKey || false
       this.alt = opts.alt || opts.altKey || false
       this.key = specialKeys[opts.keyCode] || opts.key
+      if (opts.keyCode < 91 && opts.keyCode > 64) {
+        this.key = 'abcdefghijklmnopqrstuvwxyz'.charAt(opts.keyCode-65)
+      }
       if (!this.key || this.key === 'Unidentified') {
         // hack for ie ctrl-/. fix this, or expand to other keys
         if (opts.keyCode === 191) {
@@ -50,6 +53,7 @@ angular.module('keyboard').constant('kbKey', (function() {
 
       keys.forEach(function(key) {
         if (key.toLowerCase() === 'mod') {
+          me.mod = true
           if (navigator.platform.indexOf('Mac') === -1) {
             me.ctrl = true
           } else {
@@ -78,6 +82,32 @@ angular.module('keyboard').constant('kbKey', (function() {
       return otherKey.key.toLowerCase() === this.key.toLowerCase()
     } },
 
+    toString: { value: function() {
+      var self = this, str, mods
+      if (this.mod) {
+        mods = ['shift','alt']
+        str = 'mod+'
+      } else {
+        mods = ['meta','ctrl','shift','alt']
+        str = ''
+      }
+      str += mods
+        .map(function(mod) {
+          return self[mod] ? mod : false
+        })
+        .filter(function(mod) {
+          return !!mod
+        })
+        .join('+')
+
+      if (str === 'mod+') {
+        return str + this.key
+      }
+      if (str) {
+        return str + '+' + this.key
+      }
+      return this.key
+    } },
   })
 
   return Key
