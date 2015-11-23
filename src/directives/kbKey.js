@@ -1,4 +1,4 @@
-angular.module('keyboard').directive('kbKey', ['kbAction', 'kbKey', '$document', function(kbAction, kbKey, $document) {
+angular.module('keyboard').directive('kbKey', ['$rootScope', 'kbAction', 'kbKey', '$document', function($rootScope, kbAction, kbKey, $document) {
 
   var documentIsObserved, keys = []
   function observeDocument() {
@@ -27,6 +27,7 @@ angular.module('keyboard').directive('kbKey', ['kbAction', 'kbKey', '$document',
       
       for (var i = keys.length - 1; i >= 0; i--){
         if (keys[i].kbKey.equals(new kbKey(e))) {
+          $rootScope.$emit('kb-key', keys[i].kbKey)
           e.preventDefault()
           kbAction.doActionForElement(keys[i].element)
         }

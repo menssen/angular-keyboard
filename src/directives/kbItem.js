@@ -1,7 +1,7 @@
 /**
  * kb-item
  */
-angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemController', '$animate', '$log', function(kbAction, kbKey, KbItemController, $animate, $log) {
+angular.module('keyboard').directive('kbItem',['$rootScope', 'kbAction', 'kbKey', 'KbItemController', '$animate', '$log', function($rootScope, kbAction, kbKey, KbItemController, $animate, $log) {
     return {
         controller: KbItemController,
         require: ['kbItem', '?^kbList', '?^kbSelect'],
@@ -138,6 +138,7 @@ angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemContr
                 } else {
                   kbItem.keys.some(function(itemKey) {
                     if (itemKey.kbKey.equals(new kbKey(e))) {
+                      $rootScope.$emit('kb-item-key', itemKey.kbKey)
                       e.preventDefault();
                       e.stopPropagation();
                       kbAction.doActionForElement(itemKey.element)
@@ -146,6 +147,7 @@ angular.module('keyboard').directive('kbItem',['kbAction', 'kbKey', 'KbItemContr
                   })
                 }
                 if (changed || invoke) {
+                  $rootScope.$emit('kb-item-key', new kbKey(e))
                     e.preventDefault();
                     e.stopPropagation();
                     if (invoke) {
