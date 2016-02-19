@@ -5,8 +5,12 @@ angular.module('keyboard').constant('kbAction', (function() {
          || element.attr('ng-click')     !== void 0
          || element.attr('ui-sref')      !== void 0
       ) {
-        element.triggerHandler('click')
-        return
+        if(element.attr('disabled') === 'disabled' || element.attr('ng-disabled') === true){
+          return
+        } else {
+          element.triggerHandler('click')
+          return
+        }
       }
 
       if (element.attr('kb-key-focus') !== void 0) {
