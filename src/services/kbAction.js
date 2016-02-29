@@ -5,7 +5,7 @@ angular.module('keyboard').constant('kbAction', (function() {
          || element.attr('ng-click')     !== void 0
          || element.attr('ui-sref')      !== void 0
       ) {
-        if(element.attr('disabled') || element.attr('ng-disabled') === true){
+        if(element.attr('disabled')){
           return
         } else {
           element.triggerHandler('click')
