@@ -12,7 +12,9 @@ angular.module('keyboard').constant('kbAction', (function() {
           return
         }
       }
-      if (element.attr('kb-key-focus') !== void 0 && element.attr('disabled') !== 'disabled'){
+
+      console.log(element, element.hasClass('kb-disabled'))
+      if (element.attr('kb-key-focus') !== void 0 && !element.hasClass('kb-disabled')){
         if (element.attr('kb-key-focus')) {
           var focus = element.scope().$eval(element.attr('kb-key-focus'))
           if (!focus) {
